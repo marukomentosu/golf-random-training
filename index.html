@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GOLF TRAINING PRO</title>
+    <title>GOLF TRAINING PRO - Landscape Optimized</title>
     <style>
         :root {
             --bg-color: #000;
@@ -28,13 +28,11 @@
             overflow: hidden;
         }
 
-        /* 縦向き・横向き共通の設定パネル */
         .settings-panel {
             flex: 0 0 auto;
             background: var(--panel-color);
             padding: 5px 15px;
             border-bottom: 1px solid #333;
-            z-index: 10;
         }
 
         .range-info {
@@ -46,15 +44,14 @@
 
         input[type=range] {
             width: 100%;
-            height: 20px;
+            height: 18px;
             margin: 2px 0;
         }
 
-        /* メインコンテンツエリア */
         .main-container {
             flex: 1;
             display: flex;
-            flex-direction: column; /* 縦向きの基本 */
+            flex-direction: column;
             min-height: 0;
         }
 
@@ -84,7 +81,7 @@
             flex: 0 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: 55px 55px;
+            grid-template-rows: 50px 50px;
             gap: 8px;
             padding: 10px;
             background: var(--panel-color);
@@ -102,28 +99,29 @@
         .btn-fail { background-color: var(--fail-color); color: #fff; }
         .btn-next { background-color: #444; color: #fff; grid-column: 1 / 3; }
 
-        /* 横向き（Landscape）用のレイアウト調整 */
+        /* 横向き（Landscape）用の最適化レイアウト */
         @media (orientation: landscape) {
             .main-container {
-                flex-direction: row; /* 左右分割 */
+                flex-direction: row;
             }
             .display {
-                flex: 1.2;
+                flex: 3; /* 数字エリアを広く */
             }
             .number {
-                font-size: 50vh; /* 横向き時は高さいっぱいに数字を表示 */
+                font-size: 55vh;
             }
             .controls {
-                flex: 1;
-                grid-template-columns: 1fr; /* 縦一列にボタンを並べる */
+                flex: 1; /* ボタンエリアを狭く */
+                grid-template-columns: 1fr; 
                 grid-template-rows: 1fr 1fr 1fr;
-                padding: 20px;
+                padding: 15px;
+                max-width: 250px; /* ボタンエリアの横幅を制限 */
             }
             .btn-next {
                 grid-column: 1;
             }
-            .settings-panel {
-                padding: 2px 20px;
+            button {
+                font-size: 14px; /* 横向き時は少し文字を小さく */
             }
         }
 
