@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ゴルフ・ランダム練習タイマー</title>
+    <style>
+        body { text-align: center; font-family: sans-serif; background: #2c3e50; color: white; padding-top: 50px; }
+        #distance { font-size: 80px; color: #2ecc71; margin: 20px; }
+        #timer { font-size: 40px; color: #f1c40f; }
+        button { padding: 15px 30px; font-size: 20px; cursor: pointer; background: #e74c3c; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>ランダム距離練習モード</h1>
+    <div id="distance">--- yd</div>
+    <div id="timer">準備ができたらSTART</div>
+    <br>
+    <button onclick="startPractice()">次の球を打つ</button>
+
+    <script>
+        let countdown;
+        
+        function startPractice() {
+            clearInterval(countdown);
+            
+            // 1. 30ydから250ydの間でランダムな距離を生成
+            const min = 30;
+            const max = 250;
+            const targetDistance = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            document.getElementById('distance').innerText = targetDistance + " yd";
+            
+            // 2. 音声で読み上げ（スマホだと練習に集中できる）
+            const uttr = new SpeechSynthesisUtterance(targetDistance + "ヤード、打ってください");
+            window.speechSynthesis.speak(uttr);
+
+            // 3. タイマー開始（例：30秒以内に打つ）
+            let timeLeft = 30;
+            document.getElementById('timer').innerText = "制限時間: " + timeLeft + "s";
+            
+            countdown = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').innerText = "制限時間: " + timeLeft + "s";
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    document.getElementById('timer').innerText = "タイムアップ！";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
